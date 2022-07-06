@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class Funcoes {
+public class LerFicheirosFunctions {
     static void readMovies() {
         Main.FilmesValidos = new ArrayList<>();
         Main.linhasIgnoradasFilmes = new ArrayList<>();
@@ -151,42 +151,4 @@ public class Funcoes {
             System.out.println("Erro: Não foi possível ler arquivo deisi_genres.txt");
         }
     }
-
-  /*void contaGeneros() {
-        // TODO Não está a contar bem
-        short mGeneroActores;
-        short fGeneroActores;
-        short mGeneroRealizadores;
-        short fGeneroRealizadores;
-        for (Integer i : Main.Filmes.keySet()) {
-            Filme aModificar = Main.Filmes.get(i);
-            mGeneroActores = 0;
-            fGeneroActores = 0;
-            mGeneroRealizadores = 0;
-            fGeneroRealizadores = 0;
-            for (Pessoa k : aModificar.actores.values()) {
-                switch (k.generoPessoa) {
-                    case 'M':
-                        mGeneroActores++;
-                    case 'F':
-                        fGeneroActores++;
-                }
-
-            }
-            for (Pessoa j : aModificar.realizadores.values()) {
-                switch (j.generoPessoa) {
-                    case 'M':
-                        mGeneroRealizadores++;
-                    case 'F':
-                        fGeneroRealizadores++;
-                }
-            }
-            if (mGeneroActores + fGeneroActores == 2) {// Verifica os nGeneros correspondentes
-                aModificar.nGeneros = 2;
-            } else {
-                aModificar.nGeneros = 1;
-            }
-            Main.Filmes.put(i, aModificar);
-        }
-    } */
 }

@@ -1,6 +1,6 @@
 package pt.ulusofona.deisi.aed.deisiflix;
 
-public class FuncoesQuery {
+public class QueryFunctions {
     static QueryResult countMoviesActor(String argumento) {
         long tInicial = System.currentTimeMillis();
         short nMovies = 0;

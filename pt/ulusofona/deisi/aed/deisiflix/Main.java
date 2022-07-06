@@ -15,10 +15,10 @@ public class Main {
 
     public static void lerFicheiros() throws IOException {
         //TODO: Por IOExcpetion a funcionar
-        Funcoes.readMovies(); // criar Dic com ID para guardar return de readMovies
-        Funcoes.readMovieVotes(); //lê Votos e adiciona a Filmes
-        Funcoes.readPeople();
-        Funcoes.readGenre();
+        LerFicheirosFunctions.readMovies(); // criar Dic com ID para guardar return de readMovies
+        LerFicheirosFunctions.readMovieVotes(); //lê Votos e adiciona a Filmes
+        LerFicheirosFunctions.readPeople();
+        LerFicheirosFunctions.readGenre();
     }
 
     public static ArrayList<Filme> getFilmes() {
@@ -49,37 +49,34 @@ public class Main {
     }
 
     public static QueryResult perguntar(String pergunta) {
-        long tInicial = System.currentTimeMillis();
         String[] dados = pergunta.split(" ", 2);
         String codigoPergunta = dados[0];
         String argumento = dados[1];
         switch (codigoPergunta) {
             case "COUNT_MOVIES_ACTOR":
-                return FuncoesQuery.countMoviesActor(argumento);
+                return QueryFunctions.countMoviesActor(argumento);
 
             case "GET_MOVIES_ACTOR_YEAR":
-                return FuncoesQuery.getMoviesActorYear(argumento);
+                return QueryFunctions.getMoviesActorYear(argumento);
 
             case "COUNT_MOVIES_WITH_ACTORS":
-                return FuncoesQuery.countMoviesWithActors(argumento);
+                return QueryFunctions.countMoviesWithActors(argumento);
 
             case "COUNT_ACTORS_3_YEARS":
-                return FuncoesQuery.countActors3Years(argumento);
+                return QueryFunctions.countActors3Years(argumento);
 
             case "TOP_MOVIES_WITH_GENDER_BIAS":
-                return FuncoesQuery.topMovieWithgenderBias(argumento);
+                return QueryFunctions.topMovieWithgenderBias(argumento);
 
             case "INSERT_ACTOR":
-                return FuncoesQuery.insertActor(argumento);
+                return QueryFunctions.insertActor(argumento);
 
             case "REMOVE_ACTOR":
-                return FuncoesQuery.removeActor(argumento);
-
+                return QueryFunctions.removeActor(argumento);
 
             default:
                 QueryResult invalida = new QueryResult();
                 invalida.valor = "Pergunta desconhecida. Tente novamente.";
-                invalida.tempo = System.currentTimeMillis()-tInicial;
                 return invalida;
 
         }
@@ -92,12 +89,17 @@ public class Main {
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
         while (input !=null && !input.equals("QUIT")){
-            System.out.println(perguntar(input));
+            QueryResult result = perguntar(input);
+            System.out.println(result.valor);
+            String[] query = input.split(" ");
+            if(!(query[0].equals("INSERT_ACTOR") || query[0].equals("REMOVE_ACTOR"))) {
+                System.out.println(" (demorou " + result.tempo + "ms)");
+            }
             input = in.nextLine();
         }
 
         // System.out.println(getLinhasIgnoradas("deisi_people.txt"));
-       // System.out.println(perguntar("COUNT_MOVIES_ACTOR Davison Clark"));
+        // System.out.println(perguntar("COUNT_MOVIES_ACTOR Davison Clark"));
 
 
         /* for (Integer i : Filmes.keySet()) { //itera o dicionário
