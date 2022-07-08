@@ -56,9 +56,12 @@ public class QueryFunctions {
         if (!Main.Filmes.containsKey(idFilme)) {
             return new QueryResult("Erro");
         }
+        if (!Main.idActores.contains(idActor)) {
+            Main.idActores.add(idActor);
+        }
         for (Filme filme : Main.Filmes.values()) {
-            if (!filme.actores.containsKey(idActor)){
-                filme.actores.put(idActor,new Pessoa(idActor,nome,generoActor));
+            if (!filme.actores.containsKey(idActor)) {
+                filme.actores.put(idActor, new Pessoa(idActor, nome, generoActor));
                 return new QueryResult("OK");
             }
         }
@@ -67,10 +70,23 @@ public class QueryFunctions {
 
 
     static QueryResult removeActor(String remover) {
-        QueryResult demo = new QueryResult();
-        demo.valor = "";
-        demo.tempo = 1000;
-        return demo;
+        int idARemover = Integer.parseInt(remover);
+        if (!Main.idActores.contains(idARemover)) {
+            return new QueryResult("Erro");
+        }
+        for (int i = 0; i < Main.idActores.size(); i++) {
+            //  Main.idActores.removeIf(id -> (id == idARemover));
+            if (Main.idActores.get(i) == idARemover) {
+                Main.idActores.remove(i);
+                i--;
+                //WORKAROUND de iterator, sem i-- next element is skipped
+            }
+        }
+        for (Filme filme : Main.Filmes.values()) {
+            filme.actores.remove(idARemover);
+        }
+        return new QueryResult("OK");
+
     }
 
 

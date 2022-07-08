@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class Main {
     static HashMap<Integer, Filme> Filmes;  //HashMap global para poder ser acedido globalmente pelo programa
     static ArrayList<Filme> FilmesValidos; //Array de Filmes válidos
+    static ArrayList<Integer> idActores;
     static ArrayList<String> linhasIgnoradasFilmes;
     static ArrayList<String> linhasIgnoradasVotes;
     static ArrayList<String> linhasIgnoradasPeople;

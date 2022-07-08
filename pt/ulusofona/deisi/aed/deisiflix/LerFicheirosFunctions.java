@@ -78,6 +78,7 @@ public class LerFicheirosFunctions {
         //TODO Falta ignorar duplicados
 
         Main.linhasIgnoradasPeople = new ArrayList<>();
+        Main.idActores = new ArrayList<>();
         try {
             FileReader fr = new FileReader("deisi_people.txt");
             BufferedReader reader = new BufferedReader(fr);
@@ -96,6 +97,7 @@ public class LerFicheirosFunctions {
                         Pessoa aAdicionar = new Pessoa(idPessoa, nome, genero);
                         Filme aModificar = Main.Filmes.get(filmeID);
                         if (tipoPessoa.equals("ACTOR")) {
+                            Main.idActores.add(idPessoa);
                             aModificar.actores.put(idPessoa, aAdicionar);
                             switch (genero) {
                                 case 'M':
@@ -112,7 +114,7 @@ public class LerFicheirosFunctions {
 
                         Main.Filmes.put(filmeID, aModificar);
                     } else {
-                        Main.linhasIgnoradasPeople.add(linha); //Se filmeID não constar em Filmes, então linha igmorada
+                        Main.linhasIgnoradasPeople.add(linha); //Se filmeID não constar em Filmes, então linha ignorada
                     }
                 } else {
                     Main.linhasIgnoradasPeople.add(linha); //Se linha tiver ± parametros então ignora.
