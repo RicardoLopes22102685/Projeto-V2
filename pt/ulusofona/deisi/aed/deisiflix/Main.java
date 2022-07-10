@@ -91,7 +91,9 @@ public class Main {
         String input = in.nextLine();
         while (input !=null && !input.equals("QUIT")){
             QueryResult result = perguntar(input);
-            System.out.println(result.valor);
+            if (!result.valor.equals("")) {
+                System.out.println(result.valor);
+            }
             String[] query = input.split(" ");
             if(!(query[0].equals("INSERT_ACTOR") || query[0].equals("REMOVE_ACTOR"))) {
                 System.out.println(" (demorou " + result.tempo + "ms)");
