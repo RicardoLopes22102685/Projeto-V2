@@ -8,6 +8,7 @@ public class Filme {
     int idFilme;
     String titulo;
     HashMap<Integer, Pessoa> actores;
+    HashMap<String,Integer> todosActores;
     HashMap<Integer,Pessoa> realizadores;
     HashSet<String> generoCinematografico;
     LocalDate dataLancamento;

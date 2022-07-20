@@ -96,7 +96,9 @@ public class LerFicheirosFunctions {
                     if (Main.Filmes.containsKey(filmeID)) {
                         Pessoa aAdicionar = new Pessoa(idPessoa, nome, genero);
                         Filme aModificar = Main.Filmes.get(filmeID);
+                        aModificar.todosActores = new HashMap<>();
                         if (tipoPessoa.equals("ACTOR")) {
+                            aModificar.todosActores.put(aAdicionar.nome, idPessoa);
                             Main.idActores.add(idPessoa);
                             aModificar.actores.put(idPessoa, aAdicionar);
                             switch (genero) {

@@ -70,10 +70,39 @@ public class QueryFunctions {
     }
 
     static QueryResult countMoviesWithActors(String pergunta) {
-        QueryResult demo = new QueryResult();
-        demo.valor = "";
-        demo.tempo = 1000;
-        return demo;
+        long tInicial = System.currentTimeMillis();
+        int nMovies = 0;
+        int nActores = 0;
+        String[] dados = pergunta.split(";");
+        for (Filme filme : Main.Filmes.values()) {
+            for (String actor : dados) {
+                if (filme.todosActores != null) {
+                    if (filme.todosActores.containsKey(actor)) {
+                        nActores++;
+                    }
+                }
+            }
+            if (nActores == dados.length) {
+                nMovies++;
+            }
+        }
+
+
+       /* HashSet<String> actores = new HashSet<>(Arrays.asList(dados));
+        for (Filme filme : Main.Filmes.values()) {
+            for (Pessoa pessoa : filme.actores.values()) {
+                for (String actor : actores) {
+                    if (actor.equals(pessoa.nome)) {
+                        nActores++;
+                    }
+
+                }
+            }
+            if (nActores == 3) {
+                nMovies++;
+            }
+        } */
+        return new QueryResult(String.valueOf(nMovies), System.currentTimeMillis() - tInicial);
     }
 
     static QueryResult countActors3Years(String pergunta) {
@@ -96,24 +125,21 @@ public class QueryFunctions {
         String nome = parcelas[1];
         char generoActor = parcelas[2].charAt(0);
         int idFilme = Integer.parseInt(parcelas[3]);
-        if (!Main.Filmes.containsKey(idFilme)) {
+        if (!Main.Filmes.containsKey(idFilme) || Main.idActores.contains(idActor)) {
             return new QueryResult("Erro");
         }
-        if (!Main.idActores.contains(idActor)) {
-            Main.idActores.add(idActor);
-        }
+        Main.idActores.add(idActor);
         for (Filme filme : Main.Filmes.values()) {
-            if (!filme.actores.containsKey(idActor)) {
-                filme.actores.put(idActor, new Pessoa(idActor, nome, generoActor));
+            if (filme.idFilme == idFilme) {
                 if (generoActor == 'M') {
                     filme.nActores++;
                 } else if (generoActor == 'F') {
                     filme.nActrizes++;
                 }
-                return new QueryResult("OK");
+                filme.actores.put(idActor, new Pessoa(idActor, nome, generoActor));
             }
         }
-        return new QueryResult("Erro");
+        return new QueryResult("OK");
     }
 
 
